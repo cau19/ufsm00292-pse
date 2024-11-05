@@ -17,8 +17,8 @@
  * \par Conteudo
  *
  * -# Inclui funcoes do sistema multitarefas (atraves de multitarefas.h)
- * -# Inicialização do processador e do sistema multitarefas
- * -# Criação de tarefas de demonstração
+ * -# InicializaÃ§Ã£o do processador e do sistema multitarefas
+ * -# CriaÃ§Ã£o de tarefas de demonstraÃ§Ã£o
  *
  */
 
@@ -80,9 +80,9 @@ int main(void)
 	/* Criacao das tarefas */
 	/* Parametros: ponteiro, nome, ponteiro da pilha, tamanho da pilha, prioridade da tarefa */
 	
-	CriaTarefa(tarefa_1, "Tarefa 1", PILHA_TAREFA_1, TAM_PILHA_1, 1);
+	//CriaTarefa(tarefa_1, "Tarefa 1", PILHA_TAREFA_1, TAM_PILHA_1, 1);
 	
-	CriaTarefa(tarefa_2, "Tarefa 2", PILHA_TAREFA_2, TAM_PILHA_2, 2);
+	//CriaTarefa(tarefa_2, "Tarefa 2", PILHA_TAREFA_2, TAM_PILHA_2, 2);
 
 	CriaTarefa(tarefa_9, "Tarefa 9", PILHA_TAREFA_9, TAM_PILHA_9, 1);
 	
@@ -160,12 +160,12 @@ semaforo_t SemaforoTeste = {0,0}; /* declaracao e inicializacao de um semaforo *
 void tarefa_5(void)
 {
 
-	uint32_t a = 0;			/* inicializações para a tarefa */
+	uint32_t a = 0;			/* inicializaÃ§Ãµes para a tarefa */
 	
 	for(;;)
 	{
 		
-		a++;				/* código exemplo da tarefa */
+		a++;				/* cÃ³digo exemplo da tarefa */
 
 		TarefaEspera(3); 	/* tarefa se coloca em espera por 3 marcas de tempo (ticks) */
 		
@@ -178,19 +178,19 @@ void tarefa_5(void)
 void tarefa_6(void)
 {
 	
-	uint32_t b = 0;	    /* inicializações para a tarefa */
+	uint32_t b = 0;	    /* inicializaÃ§Ãµes para a tarefa */
 	
 	for(;;)
 	{
 		
-		b++; 			/* código exemplo da tarefa */
+		b++; 			/* cÃ³digo exemplo da tarefa */
 		
 		SemaforoAguarda(&SemaforoTeste); /* tarefa se coloca em espera por semaforo */
 
 	}
 }
 
-/* soluçao com buffer compartihado */
+/* soluÃ§ao com buffer compartihado */
 /* Tarefas de exemplo que usam funcoes de semaforo */
 
 #define TAM_BUFFER 10
@@ -202,7 +202,7 @@ semaforo_t SemaforoVazio = {TAM_BUFFER,0}; /* declaracao e inicializacao de um s
 void tarefa_7(void)
 {
 
-	uint8_t a = 1;			/* inicializações para a tarefa */
+	uint8_t a = 1;			/* inicializaÃ§Ãµes para a tarefa */
 	uint8_t i = 0;
 	
 	for(;;)
@@ -245,7 +245,7 @@ void tarefa_8(void)
 		valor = buffer[f];
 		f = (f+1) % TAM_BUFFER;	
 		
-		(void)valor;	/* leitura da variável para evitar aviso (warning) do compilador */
+		(void)valor;	/* leitura da variÃ¡vel para evitar aviso (warning) do compilador */
 		
 		SemaforoLibera(&SemaforoVazio);
 	}

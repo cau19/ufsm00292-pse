@@ -41,6 +41,10 @@ void tarefa_6(void);
 void tarefa_7(void);
 void tarefa_8(void);
 void tarefa_9(void);
+void tarefa_10(void);
+void tarefa_11(void);
+void tarefa_13(void);
+void tarefa_12(void);
 
 /*
  * Configuracao dos tamanhos das pilhas
@@ -54,6 +58,10 @@ void tarefa_9(void);
 #define TAM_PILHA_7			(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_8			(TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_9                     (TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_10                     (TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_11                     (TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_12                     (TAM_MINIMO_PILHA + 24)
+#define TAM_PILHA_13                     (TAM_MINIMO_PILHA + 24)
 #define TAM_PILHA_OCIOSA	(TAM_MINIMO_PILHA + 24)
 
 /*
@@ -68,6 +76,10 @@ uint32_t PILHA_TAREFA_6[TAM_PILHA_6];
 uint32_t PILHA_TAREFA_7[TAM_PILHA_7];
 uint32_t PILHA_TAREFA_8[TAM_PILHA_8];
 uint32_t PILHA_TAREFA_9[TAM_PILHA_9];
+uint32_t PILHA_TAREFA_10[TAM_PILHA_10];
+uint32_t PILHA_TAREFA_11[TAM_PILHA_11];
+uint32_t PILHA_TAREFA_12[TAM_PILHA_12];
+uint32_t PILHA_TAREFA_13[TAM_PILHA_13];
 uint32_t PILHA_TAREFA_OCIOSA[TAM_PILHA_OCIOSA];
 
 /*
@@ -84,7 +96,16 @@ int main(void)
 	
 	//CriaTarefa(tarefa_2, "Tarefa 2", PILHA_TAREFA_2, TAM_PILHA_2, 2);
 
-	CriaTarefa(tarefa_9, "Tarefa 9", PILHA_TAREFA_9, TAM_PILHA_9, 1);
+	//CriaTarefa(tarefa_9, "Tarefa 9", PILHA_TAREFA_9, TAM_PILHA_9, 1);
+	
+	//CriaTarefa(tarefa_10, "Tarefa 10", PILHA_TAREFA_10, TAM_PILHA_10, 2);
+    
+	//CriaTarefa(tarefa_11, "Tarefa 11", PILHA_TAREFA_11, TAM_PILHA_11, 1);
+    
+   	CriaTarefa(tarefa_12, "Tarefa 12", PILHA_TAREFA_12, TAM_PILHA_12, 1);
+    
+	CriaTarefa(tarefa_13, "Tarefa 13", PILHA_TAREFA_13, TAM_PILHA_13, 2);
+
 	
 	/* Cria tarefa ociosa do sistema */
 	CriaTarefa(tarefa_ociosa,"Tarefa ociosa", PILHA_TAREFA_OCIOSA, TAM_PILHA_OCIOSA, 0);
@@ -267,3 +288,55 @@ void tarefa_9(void)
 		TarefaEspera(2000); /* Espera 2 segundos */
 	}
 }
+
+void tarefa_10(void)
+{
+	static int led = false;
+	
+	for(;;)
+	{ 
+		port_pin_set_output_level(LED_0_PIN, led);
+		led ^= true;
+		TarefaSuspende(100); // Aumenta a frequência de piscar
+	}
+
+}
+
+void tarefa_11(void)
+{
+	static int a = 0;
+
+	for(;;) 
+	{
+		TarefaContinua(100); // Menor tempo de espera para que a tarefa 9 possa piscar rapidamente
+		TarefaEspera(2000); // Maior tempo de espera
+	}	
+
+}
+
+void tarefa_12(void)
+{
+	
+	static int led = false;
+	for(;;)
+	{
+		port_pin_set_output_level(LED_0_PIN, led);
+		for(volatile int i = 0; i < 100000; i++); // Diminuir o tempo de espera no loop para piscar rápido 
+		led ^= true;
+	}
+}
+
+
+
+void tarefa_13(void)
+{
+	
+	static int a = 0;
+	for(;;)
+	{
+		for(volatile int i = 0; i < 1000000; i++); // Maior tempo de espera no loop 
+		TarefaEspera(2000); // Maior tempo de espera 
+	}
+
+}
+

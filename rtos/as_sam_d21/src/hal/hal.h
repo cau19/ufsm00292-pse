@@ -3,6 +3,7 @@
 
 #include "uart.h"
 #include "hal_adc.h"
+#include  "hal_temt6000.h"
 
 void init_board(void);
 
